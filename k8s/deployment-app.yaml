@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+      name: app
+    spec:
+      containers:
+      - name: app
+        envFrom:
+        - secretRef:
+            name: env-file
+        image: ghcr.io/franciscoserio/opa-auth:latest
+        ports:
+        - containerPort: 8000
